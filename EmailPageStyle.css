@@ -1,0 +1,86 @@
+div.titlepane
+{
+	font-family:arial;
+	font-size:18px;
+	color:White;
+	position:absolute;
+	top:5;
+	left:5;
+	height:40;
+	width:790;
+	z-index:50;
+}
+
+div.fullpane
+{
+	font-family:arial;
+	font-size:10pt;
+	position:absolute;
+	top:55;
+	left:0;
+	width:800;
+	height:286;
+	z-index:40;
+}
+
+div.leftpane
+{
+	font-family:arial;
+	font-size:10pt;
+	position:absolute;
+	top:55;
+	left:0;
+	width:400;
+	height:286;
+	z-index:40;
+}
+
+div.rightpane
+{
+	font-family:arial;
+	font-size:10pt;
+	position:absolute;
+	top:55;
+	left:400;
+	width:400;
+	height:286;
+	z-index:40;
+}
+
+div.StartButton
+{
+	position:absolute;
+	font-size:18px;
+	left:465px;
+	top:3px
+}
+
+div.NextButton
+{
+	position:absolute;
+	font-size:18px;
+	left:570px;
+	top:3px
+}
+
+div.ExitButton
+{
+	position:absolute;
+	font-size:18px;
+	left:675px;
+	top:3px
+}
+
+div.label
+{
+	position: absolute; 
+	left: 10px
+}
+
+div.kb
+{
+	position: absolute; 
+	top: 0px; 
+	left: 120px
+}
+

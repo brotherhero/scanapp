@@ -1,0 +1,176 @@
+<html>
+	<head>
+	    <title>EIP Scan To Email App</title>
+	    
+	    <!-- Xerox Widgets -->
+		<link href="http://127.0.0.1/xrx_widgets/XRXWidgets.css" type="text/css" rel="stylesheet"></link>
+		<script src="http://127.0.0.1/xrx_widgets/XRXWidgets.js" type="text/javascript"></script>
+        
+		<script type="text/javascript" src="../XeroxJavascriptLibrary/XRXXmlHandler.js"></script>
+		<script type="text/javascript" src="../XeroxJavascriptLibrary/XRXWebservices.js"></script>
+		<script type="text/javascript" src="../XeroxJavascriptLibrary/XRXSession.js"></script>
+		<script type="text/javascript" src="../XeroxJavascriptLibrary/XRXUtilities.js"></script>
+		<script type="text/javascript" src="../XeroxJavascriptLibrary/XRXScanV2.js"></script>
+	    <script type="text/javascript" src="../XeroxJavascriptLibrary/XRXJobManagement.js"></script>
+		
+	    <script type="text/javascript" src="EmailHelper.js"></script> 
+	    <script type="text/javascript" src="CommonHelper.js"></script>
+		<script type="text/javascript" src="version.js"></script>
+
+        <link href="EmailPageStyle.css" type="text/css" rel="stylesheet"></link>
+
+		<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="no-cache"></META>
+		
+		<script type="text/javascript">
+            
+		    function init()
+		    {		        
+		        getSessionInfo();
+				writeSR1(app_version, false);
+		        xrx_load_widgets();
+		    }     
+			
+			function next()
+			{
+				document.getElementById("emailpane").style.visibility = "hidden";
+				document.getElementById("emailtoolbar").style.visibility = "hidden";
+				document.getElementById("optionspane").style.visibility = "visible";
+				document.getElementById("optionstoolbar").style.visibility = "visible";
+			}
+			
+			function save()
+			{
+				document.getElementById("emailpane").style.visibility = "visible";
+				document.getElementById("emailtoolbar").style.visibility = "visible";
+				document.getElementById("optionspane").style.visibility = "hidden";
+				document.getElementById("optionstoolbar").style.visibility = "hidden";
+			}
+            
+		</script>
+	</head>
+	<body>
+
+	    <form name="EmailForm">
+
+        <div class="xrx:StatusRegionPanel" id="xrx:StatusRegionPanel">
+			<div class="xrx:StatusRegionSR1" id="xrx:StatusRegionSR1"></div>
+			<div class="xrx:StatusRegionSR2" id="xrx:StatusRegionSR2"></div> 
+			<div class="xrx:StatusRegionSR3" id="xrx:StatusRegionSR3"></div>
+		</div>
+		<div class="xrx:ToolBarPanel" style="TEXT-ALIGN:left" id="xrx:ToolBarPanel">
+			<div class="xrx:ToolBarTextLine1" id="xrx:ToolBarTextLine1" style="WIDTH:340px"></div>
+			<div class="xrx:ToolBarTextLine2" id="xrx:ToolBarTextLine2" style="WIDTH:340px"></div>
+			<div class="xrx:ToolBarTextLine3" id="xrx:ToolBarTextLine3"></div>
+			<div class="ToolBarButtons" id="ToolBarButtons">
+                <div style="position:relative;visibility:visible" id="emailtoolbar">	
+				    <div class="StartButton">
+					    <input type="button" id="Next" class="xrx:command" imgsize="90x38" value="Start" disabled="disabled" onmousedown="start()" />
+				    </div>					
+				    <div class="NextButton">
+					    <input type="button" id="Next" class="xrx:command" imgsize="90x38" value="Next" onmousedown="next()" />
+				    </div>
+    			    <div class="ExitButton">
+					    <input type="button" id="ExitBtn" class="xrx:command" imgsize="90x38" value="Exit" onmousedown="exit()" />
+				    </div>	
+                </div>
+                <div style="position:relative;visibility:hidden" id="optionstoolbar">
+ 				    <div class="ExitButton">
+					    <input type="button" class="xrx:command" imgsize="90x38" value="Save" onmousedown="save()" />
+				    </div>                   	
+                </div>						
+			</div>
+		</div>
+		<div id="xrx:ProgramAreaPanel" class="xrx:ProgramAreaPanel">
+ 			<div class="titlepane" id="titlepane"></div>          
+            <div id="emailpane" class="fullpane" style="visibility:visible">
+                <div class="label" style="top:10px">
+                    <label >From: </label>
+                </div>
+                <div id="kbdFrom" class="kb" style="top:0px">
+                    <input id="from" type="text" name="from" class="xrx:keyboardtext" maxlength="255"></input>
+                </div>
+                <div class="label" style="top:50px;">
+                    <label>To: </label>
+                </div>
+                <div id="kbdTo" class="kb" style="top:40px"> 
+                    <input id="to" type="text" name="to" class="xrx:keyboardtext" maxlength="255"></input>
+                </div>
+                <div class="label" style="top:90px">
+                    <label>Cc: </label>
+                </div>
+                <div id="kbdCc" class="kb" style="top:80px">
+                    <input id="cc" type="text" name="cc" class="xrx:keyboardtext" maxlength="255"></input>
+                </div>
+                <div class="label" style="top:130px">
+                    <label>Bcc: </label>
+                </div>
+                <div id="kbdBcc" class="kb" style="top:120px">
+                    <input id="bcc" type="text" name="bcc" class="xrx:keyboardtext" maxlength="255"></input>
+                </div>
+                <div class="label" style="top:170px">
+                    <label>ReplyTo: </label>
+                </div>
+                <div id="kbdReplyTo" class="kb" style="top:160px">
+                    <input id="replyTo" type="text" name="replyTo" class="xrx:keyboardtext" maxlength="255"></input>
+                </div>
+                <div class="label" style="top:210px">
+                    <label>Subject: </label>
+                </div>
+                <div class="kb" style="top:200px" id="kbdSubject">
+                    <input id="subject" type="text" name="subject" class="xrx:keyboardtext" maxlength="255"></input>
+                </div>
+                <div class="label" style="top:250px">
+                    <label>MessageBody: </label>
+                </div>
+                <div class="kb" style="top:240px" id="kbdMessageBody">
+                    <input id="messageBody" type="text" name="messageBody" class="xrx:keyboardtext" maxlength="255"></input>
+                </div>
+                <div id="ScanAnimation" style="position: absolute; top: 10px; left: 430px; display:none;">
+                    <img src="scan_animation.gif" height="248" width="253"></img>
+                </div>
+            </div>
+          
+            <div id="optionspane" class="fullpane" style="visibility:hidden">
+                <div style="position: absolute; top: 0px; left: 10px;">Color</div>
+				<div style="position: absolute; top: 30px; left: 10px;">
+                    <select class="xrx:radio" name="Color" id="Color">
+						<option selected="selected" value="Auto">Auto</option>
+						<option value="FullColor">FullColor</option>
+						<option value="Grayscale">Grayscale</option>
+						<option value="BlackAndWhite">BlackAndWhite</option>
+					</select>
+				</div>
+                <div style="position: absolute; top: 0px; left: 200px;">Sides</div>
+				<div style="position: absolute; top: 30px; left: 200px;">
+                    <select class="xrx:radio" name="Sides" id="Sides">
+						<option selected="selected" value="OneSided">OneSided</option>
+						<option value="TwoSidedLongEdge">TwoSidedLongEdge</option>
+						<option value="TwoSidedShortEdge">TwoSidedShortEdge</option>
+						<option value="TwoSided">TwoSided</option>
+					</select>
+				</div>
+                <div style="position: absolute; top: 0px; left: 400px;">OriginalSize</div>
+				<div style="position: absolute; top: 30px; left: 400px;">
+                    <select class="xrx:radio" name="OriginalSize" id="OriginalSize">
+						<option value="Auto">Auto</option>
+						<option selected="selected" value="NA_8.5x11LEF">Letter LEF</option>
+						<option value="NA_8.5x14SEF">Legal SEF</option>
+						<option value="ISO_A4LEF">A4 LEF</option>
+					</select>
+				</div>	
+                <div style="position: absolute; top: 0px; left: 600px;">Resolution</div>
+				<div style="position: absolute; top: 30px; left: 600px;">
+                    <select class="xrx:radio" name="Resolution" id="Resolution">
+						<option value="100x100">100 dpi</option>
+						<option selected="selected" value="200x200">200 dpi</option>
+						<option value="300x300">300 dpi</option>
+						<option value="400x400">400 dpi</option>
+						<option value="600x600">600 dpi</option>
+					</select>
+				</div>				
+            </div>
+    	</div>	
+        </form>
+        <script>window.onload=init;</script>
+	</body>
+</html>
